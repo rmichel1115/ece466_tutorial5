@@ -203,7 +203,7 @@ DeadInst++;
 
 }
 int main(int argc, char **argv) {
-    cl::ParseCommandLineOptions(argc, argv, "./dce <input> <output> \>
+    cl::ParseCommandLineOptions(argc, argv, "./dce <input> <output> \n");  
     // LLVM idiom for constructing output file.
     std::unique_ptr<ToolOutputFile> Out;
     std::string ErrorInfo;
