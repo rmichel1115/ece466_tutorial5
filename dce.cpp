@@ -32,19 +32,20 @@
 
 using namespace llvm;
 static cl::opt<std::string>
-        InputFilename(cl::Positional, cl::desc("<input bitcode>"), cl>
+        InputFilename(cl::Positional, cl::desc("<input bitcode>"), cl::Required, cl::init("-"));
 static cl::opt<std::string>
-        OutputFilename(cl::Positional, cl::desc("<output bitcode>"), >
+        OutputFilename(cl::Positional, cl::desc("<output bitcode>"), cl::Required, cl::init("out.bc"));
 static cl::opt<bool>
         Mem2Reg("mem2reg",
-                cl::desc("Perform memory to register promotion before>                cl::init(false));
+                cl::desc("Perform memory to register promotion before CSE."), cl::init(false));
 
 static cl::opt<bool>
         Verbose("verbose",
-                cl::desc("Verbosely print lots of status messages to >                cl::init(false));
+                cl::desc("Verbosely print lots of status messages to the screen."), cl::init(false));
 
 
-static llvm::Statistic DeadInst = {"", "Dead", "DCE found dead instru>static llvm::Statistic WorkList = {"", "WorkList", "Added to work lis>
+static llvm::Statistic DeadInst = {"", "Dead", "DCE found dead instructions"};
+static llvm::Statistic WorkList = {"", "WorkList", "Added to work list"};
 bool isDead(Instruction &I)
 {
   int opcode = I.getOpcode();
