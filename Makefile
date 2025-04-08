@@ -14,6 +14,7 @@
         clang++ -c -o$@ $<
 
 dce: dce.o
-        clang++ -o$@ $^ `llvm-config --cxxflags --ldflags --libs --sy>
+clang++ -o$@ $^ `llvm-config --cxxflags --ldflags --libs --system-libs`
+
 clean:
-        rm -f dce.o dce *~ main.bc main.ll
+rm -f dce.o dce *~ main.bc main.ll
