@@ -12,14 +12,15 @@ include(AddLLVM)
 add_definitions(${LLVM_DEFINITIONS})
 include_directories(${LLVM_INCLUDE_DIRS})
 
-llvm_map_components_to_libnames(llvm_libs analysis bitreader bitwrite>
+llvm_map_components_to_libnames(llvm_libs analysis bitreader bitwriter codegen core asmparser irreader instcombine instrumentation mc objcarcopts scalaropts support ipo target transformutils vectorize)
 include_directories(.)
 
 add_executable(dce dce.cpp)
 target_link_libraries(dce ${llvm_libs})
 
 add_custom_target(test0.bc ALL
-        clang-19 -O0 -Xclang -disable-O0-optnone -c -emit-llvm -o tes>        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+        clang-19 -O0 -Xclang -disable-O0-optnone -c -emit-llvm -o test0.bc ${CMAKE_CURRENT_SOURCE_DIR}/test0.c  
+        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS dce test0.c
       )
 
